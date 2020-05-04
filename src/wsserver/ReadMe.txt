@@ -15,6 +15,8 @@ https://slproweb.com/products/Win32OpenSSL.html
 下载安装，设置环境变量：OPENSSL_DIR=C:\OpenSSL-Win64
 Linux:
 sudo apt-get install openssl
-sudo yum install openssl
+sudo apt-get install libssl-dev
+或
+sudo yum install openssl-devel
 
 3.运行init-windows.bat/init_linux.sh
