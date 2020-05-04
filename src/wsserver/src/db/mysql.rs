@@ -1,13 +1,12 @@
 
-use r2d2_mysql::mysql::{Opts, OptsBuilder};
-use r2d2_mysql::MysqlConnectionManager;
 
-pub type MySqlDbPool = r2d2::Pool<MysqlConnectionManager>;
+use diesel::prelude::*;
+use diesel::r2d2::{self, ConnectionManager};
+
+pub type MySqlDbPool = r2d2::Pool<ConnectionManager<MysqlConnection>>;
 
 pub fn get_mysql_db_pool() -> MySqlDbPool {
-    let db_url = std::env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-    let opts = Opts::from_url(&db_url).unwrap();
-    let builder = OptsBuilder::from_opts(opts);
-    let manager = MysqlConnectionManager::new(builder);
-    r2d2::Pool::new(manager).expect("Failed to create DB Pool")
+    let connspec = std::env::var("DATABASE_URL").expect("DATABASE_URL");
+    let manager = ConnectionManager::<MysqlConnection>::new(connspec);
+    r2d2::Pool::builder().build(manager).expect("Failed to create pool.")
 }

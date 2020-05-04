@@ -11,7 +11,7 @@ mod ws;
 mod http;
 mod routes;
 
-use crate::db::sqlite::*;
+use crate::db::mysql::*;
 
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
@@ -20,7 +20,7 @@ async fn main() -> std::io::Result<()> {
     dotenv::dotenv().ok();
 
     // set up database connection pool
-    let pool = get_sqlite_db_pool();
+    let pool = get_mysql_db_pool();
         
     let addr = "0.0.0.0:8080";
 
@@ -30,7 +30,7 @@ async fn main() -> std::io::Result<()> {
             .data(pool.clone())
             .wrap(
                 Cors::new()
-                    .allowed_origin("http://127.0.0.1:8080")
+                    .allowed_origin("http://10.0.2.239:8080")
                     .allowed_methods(vec!["GET", "POST"])
                     .allowed_headers(vec![header::AUTHORIZATION, header::ACCEPT])
                     .allowed_header(header::CONTENT_TYPE)

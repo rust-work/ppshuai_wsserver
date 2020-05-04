@@ -18,5 +18,13 @@ sudo apt-get install openssl
 sudo apt-get install libssl-dev
 或
 sudo yum install openssl-devel
+3.Windows/Linux下安装mysqlclient
+Windows：
+https://downloads.mysql.com/archives/c-c/
+下载对应版本
+Linux：
+sudo apt-get install libmysqlclient-dev
+或
+sudo apt-get install mysql-devel
 
-3.运行init-windows.bat/init_linux.sh
+4.运行init-windows.bat/init_linux.sh

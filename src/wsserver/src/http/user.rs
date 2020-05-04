@@ -3,12 +3,12 @@ use actix_web::{get, post, web, Error, HttpResponse};
 use uuid::Uuid;
 
 use crate::db::{actions, models};
-use crate::db::sqlite::SqliteDbPool;
+use crate::db::mysql::MySqlDbPool;
 
 /// Finds user by UID.
 #[get("/user/{user_id}")]
 pub async fn get_user(
-    pool: web::Data<SqliteDbPool>,
+    pool: web::Data<MySqlDbPool>,
     user_uid: web::Path<Uuid>,
 ) -> Result<HttpResponse, Error> {
     let user_uid = user_uid.into_inner();
@@ -34,7 +34,7 @@ pub async fn get_user(
 /// Inserts new user with name defined in form.
 #[post("/user")]
 pub async fn add_user(
-    pool: web::Data<SqliteDbPool>,
+    pool: web::Data<MySqlDbPool>,
     form: web::Json<models::NewUser>,
 ) -> Result<HttpResponse, Error> {
     let conn = pool.get().expect("couldn't get db connection from pool");
