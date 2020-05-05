@@ -11,7 +11,8 @@ mod ws;
 mod http;
 mod routes;
 
-use crate::db::mysql::*;
+use crate::db::sqlite::*;
+//use crate::db::mysql::*;
 
 #[actix_rt::main]
 async fn main() -> std::io::Result<()> {
@@ -20,7 +21,8 @@ async fn main() -> std::io::Result<()> {
     dotenv::dotenv().ok();
 
     // set up database connection pool
-    let pool = get_mysql_db_pool();
+    let pool = get_sqlite_db_pool();
+    //let pool = get_mysql_db_pool();
         
     let addr = "0.0.0.0:8080";
 
